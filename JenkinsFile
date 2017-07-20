@@ -1,0 +1,45 @@
+// pipeline {
+   // agent {master}
+   // triggers {
+       // cron('H 4/* 0 0 1-5')
+   // }
+node('master') {
+   def mvnHome
+   stage('Code Checkout') { // for display purposes
+      // Getting code from GitHub repository
+      git 'https://github.com/rsravanam/MavenSamples.git'
+      // Get the Maven tool.
+      // ** NOTE: This 'Maven_3.3.9' Maven tool must be configured
+      // **       in the global configuration.           
+      // MAVEN_HOME = tool 'Maven_3.3.9'
+   }
+   stage('Build') {
+      // Run the maven build
+      if (isUnix()) {
+         sh "'mvn' clean package"
+      } else {
+         bat(/"mvn" clean package/)
+      }
+   }
+//   stage('UnitTestResults') {
+//      // Publish the Unit test results
+//      junit '**/target/surefire-reports/TEST-*.xml'
+//      archive 'target/*.jar'
+//   }
+//   stage('SonarQube Analysis') {
+//       // sh "./gradlew clean sonarqube"
+//      build job: 'Upstream-Sonar', parameters: [string(name: 'Environment', value: 'Dev')]
+//   }
+//   stage('UploadArtifactsandDeploy') {
+//      // Invoking the artifact upload job followed by the deployment
+//      build job: 'Upstream-Dev-WebApp', parameters: [string(name: 'Environment', value: 'Dev')]
+//   }
+//   stage('UploadandDownloadArtifactstoQAEnv.') {
+//      // Invoking the artifact upload followed by the download for QA environment followed by the deployment
+//      build job: 'Upstream-QA-WebApp', parameters: [string(name: 'Source-Environment', value: 'Dev'), string(name: 'Environment', value: 'QA')]
+//   }
+//   stage('JMeterScriptsExecution') {
+//      // Invoking the JMeter Scripts followed by the deployment
+//      build job: 'Jmeter-Trigger', wait: false
+//   }
+}
