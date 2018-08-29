@@ -152,7 +152,7 @@
 			</executions>
 			<configuration>
 				<serverId>nexus</serverId>
-				<nexusUrl>http://localhost:8081/nexus/</nexusUrl>
+				<nexusUrl>https://35.231.71.181</nexusUrl>
 				<skipStaging>true</skipStaging>
 				<version>0.1</version>
 			</configuration>
